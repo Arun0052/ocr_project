@@ -4,8 +4,8 @@ from ocr_script import ocr_main
 from ocr_other_info import read_invoice
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'static/upload'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# UPLOAD_FOLDER = 'static/upload'
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def main():
@@ -61,8 +61,8 @@ def upload():
         response=[]
         files = request.files.getlist("file")
         for file in files:
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-            response.append(pdf_files(os.path.join(app.config['UPLOAD_FOLDER'], file.filename),file.filename))
+            file.save(os.path.join(os.getcwd(), file.filename))
+            response.append(pdf_files(os.path.join(os.getcwd(), file.filename),file.filename))
     responses={"response":response,'status':200}
     return jsonify(responses)
 
