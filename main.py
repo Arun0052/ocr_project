@@ -1,9 +1,12 @@
 import os
 from flask import *
+from flask_cors import CORS
 from ocr_script import ocr_main
 from ocr_other_info import read_invoice
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
 # UPLOAD_FOLDER = 'static/upload'
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -67,4 +70,4 @@ def upload():
     return jsonify(responses)
 
 if __name__ == '__main__':
-    app.run("0.0.0.0",port=1020,debug=True)
+    app.run("0.0.0.0",port=5000,debug=True)
