@@ -63,6 +63,8 @@ def upload():
     if request.method == "POST":
         response=[]
         files = request.files.getlist("file")
+        if len(files) > 10:
+            return {"response":"You are only allowed to upload a maximum of 10 files",'status':200}
         for file in files:
             file.save(os.path.join(os.getcwd(), file.filename))
             response.append(pdf_files(os.path.join(os.getcwd(), file.filename),file.filename))

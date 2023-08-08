@@ -1,5 +1,11 @@
+# import camelot
+# from PyPDF2 import PdfFileReader
+import PyPDF2
 from tabula.io import read_pdf
 import pandas as pd
+# from typing import Dict, Union
+#
+# from pypdf import PdfReader
 
 
 
@@ -45,8 +51,24 @@ def ocr_main(filename):
             df1 = df1.fillna('')
             return df1.to_dict('records')
     except Exception as e:
+        from pdfquery import PDFQuery
+        pdf = PDFQuery('PLIV23002997.pdf')
+        pdf.load()
+        from bs4 import BeautifulSoup
+        data = pdf.extract([
+            ('with_formatter', 'text'),
+            ('Description', 'LTTextLineHorizontal:in_bbox("60.963, 357.153, 172.928, 369.369")'),
+            ('UOM', 'LTTextLineHorizontal:in_bbox("240.0, 357.153, 270.34, 369.369")'),
+            ('Cur', 'LTTextLineHorizontal:in_bbox("300.0, 357.153, 318.893, 369.369")'),
+            ('Price', 'LTTextLineHorizontal:in_bbox("420.0, 357.153, 449.857, 369.369")'),
+            ('No','LTTextLineHorizontal:in_bbox("30.0, 357.153, 37.464, 369.369")'),
+            ('Qty', 'LTTextLineHorizontal:in_bbox("30.0, 357.153, 37.464, 369.369")'),
+            ('ROE', 'LTTextLineHorizontal:in_bbox("53.25, 357.153, 60.963, 382.025")'),
+            ('Amount', 'LTTextLineHorizontal:in_bbox("420.0, 357.153, 449.857, 369.369")'),
+        ])
+        return data
         print(e)
-        return str(e)
+
 
 if __name__ == '__main__':
     filename = "PLIV23002807.pdf"
