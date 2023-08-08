@@ -52,9 +52,9 @@ def ocr_main(filename):
             return df1.to_dict('records')
     except Exception as e:
         from pdfquery import PDFQuery
-        pdf = PDFQuery('PLIV23002997.pdf')
+        pdf = PDFQuery(filename)
         pdf.load()
-        from bs4 import BeautifulSoup
+        # from bs4 import BeautifulSoup
         data = pdf.extract([
             ('with_formatter', 'text'),
             ('Description', 'LTTextLineHorizontal:in_bbox("60.963, 357.153, 172.928, 369.369")'),
